@@ -9,6 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 public class LdmSpringboootApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LdmSpringboootApplication.class, args);
+		SpringApplication springApplication = new SpringApplication(LdmSpringboootApplication.class);
+		// 禁止命令行设置参数
+		springApplication.setAddCommandLineProperties(false);
+		springApplication.run(args);
 	}
 }
