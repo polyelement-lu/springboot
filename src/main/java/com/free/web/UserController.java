@@ -20,17 +20,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.free.model.User;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
+
 @RestController
 @RequestMapping(value="/users")
 public class UserController {
 	 // 创建线程安全的map
 	 static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
+	 
+	 @ApiOperation(value="获取用户列表",notes="")
 //	 @RequestMapping(value="/",method=RequestMethod.GET)
 	 @GetMapping(value="/") // 组合注解
 	 public List<User> getUserList(){
 		 List<User> list = new ArrayList<>(users.values());
 		 return list;
 	 }
+	 @ApiOperation(value="创建用户",notes="根据user对象创建用户")
+	 @ApiImplicitParam(name="user",value="用户详细实体user",required=true,dataType="User")
 //	 @RequestMapping(value="/",method=RequestMethod.POST)
 	 @PostMapping(value="/")
 	 public String postUser(@ModelAttribute User user){
@@ -38,12 +47,19 @@ public class UserController {
 		 users.put(user.getId(), user);
 		 return "success";
 	 }
+	 @ApiOperation(value="获取用户详细信息",notes="根据url的id获取用户详细信息")
+	 @ApiImplicitParam(name="id",value="用户ID",required=true,dataType="Long")
 //	 @RequestMapping(value="/{id}",method=RequestMethod.GET)
 	 @GetMapping(value="/{id}")
 	 public User postUser(@PathVariable Long id){
 		 // 根据id获取User
 		 return users.get(id);
 	 }
+	 @ApiOperation(value="更新用户详细信息",notes="根据url的id更新指定用户，并根据传过来的user更新用户详细信息")
+	 @ApiImplicitParams({
+		 @ApiImplicitParam(name="id",value="用户Id",required=true,dataType="Long"),
+		 @ApiImplicitParam(name="user",value="用户详细实体user",required=true,dataType="User")
+	 })
 //	 @RequestMapping(value="/{id}",method=RequestMethod.PUT)
 	 @PutMapping(value="/{id}") // 组合注解
 	 public String updateUser(@PathVariable Long id,@ModelAttribute User user){
@@ -54,6 +70,8 @@ public class UserController {
 		 users.put(id, u);
 		 return "success";
 	 }
+	 @ApiOperation(value="删除用户",notes="根据url的id删除指定用户")
+	 @ApiImplicitParam(name="id",value="用户Id",required=true,dataType="Long")
 //	 @RequestMapping(value="/{id}",method=RequestMethod.DELETE)
 	 @DeleteMapping(value="/{id}")
 	 public String delUser(@PathVariable Long id){
