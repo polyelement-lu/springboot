@@ -22,7 +22,9 @@
 		<thymeleaf.version>3.0.6.RELEASE</thymeleaf.version>
    		<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
    		<!-- swagger版本 -->
-   		<springfox-swagger.version>2.6.1</springfox-swagger.version>
+        <!-- 建议2.6.1，2.8.0的intoFolder()方法报错-->
+        <!--<springfox-swagger.version>2.8.0</springfox-swagger.version>-->
+        <springfox-swagger.version>2.6.1</springfox-swagger.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -136,7 +138,13 @@
                         <groupId>org.jruby</groupId>  
                         <artifactId>jruby-complete</artifactId>  
                         <version>9.1.16.0</version>  
-                    </dependency>  
+                    </dependency>
+                    <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj</artifactId>
+                        <version>1.5.6</version>
+                    </dependency>
                 </dependencies> 
 
                 <!-- Configure generic document generation settings -->
@@ -180,10 +188,7 @@
                         <goals>  
                             <goal>process-asciidoc</goal>  
                         </goals> 
-                        <configuration>  
-<!--                         	<attributes> -->
-<!--                         		<pdf-style>cn</pdf-style> -->
-<!--                         	</attributes> -->
+                        <configuration>
                             <backend>pdf</backend>  
                             <outputDirectory>${asciidoctor.pdf.output.directory}</outputDirectory>  
                         </configuration>  

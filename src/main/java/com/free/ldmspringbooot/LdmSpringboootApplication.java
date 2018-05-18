@@ -28,11 +28,15 @@ public class LdmSpringboootApplication {
 		logger.info("\n----------------------------------------------------------\n\t" +
 				"Application '{}' is running! Access URLs:\n\t" +
 				"Local: \t\thttp://localhost:{}\n\t" +
-				"External: \thttp://{}:{}\n"+
+				"External: \thttp://{}:{}\n\t"+
+				"onDoc-External: \thttp://{}:{}/{}\n"+
 				"----------------------------------------------------------",
 				environment.getProperty("com.free.blog.name"),
 				environment.getProperty("server.port"),
 				InetAddress.getLocalHost().getHostAddress(),
-				environment.getProperty("server.port"));
+				environment.getProperty("server.port"),
+				InetAddress.getLocalHost().getHostAddress(),
+				environment.getProperty("server.port"),
+				environment.getProperty("doc.suffix"));
 	}
 }
