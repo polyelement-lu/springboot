@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script>
+        $(function () {
+            console.log(1,"进入")
+            $.ajax({
+                type: 'POST',
+                url: '/hc/demo',
+                data: {},
+                cache: false,
+                async: true,
+                success: function (data) {
+                    console.log(1,data)
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<a th:text="${host}" th:href="${host}">百度一下</a>
+</body>
+</html>
